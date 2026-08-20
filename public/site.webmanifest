@@ -1,0 +1,16 @@
+{
+  "name": "Nalarva",
+  "short_name": "Nalarva",
+  "description": "Persiapan TKA SD, SMP, dan SMA.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf6",
+  "theme_color": "#10284c",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

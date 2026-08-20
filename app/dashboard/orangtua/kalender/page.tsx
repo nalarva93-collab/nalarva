@@ -1,0 +1,1 @@
+"use client";import DashboardShell from "@/components/DashboardShell";import AcademicCalendar from "@/components/dashboard/AcademicCalendar";import {PARENT_NAV} from "@/lib/dashboard-nav";export default function Page(){return <DashboardShell accessRole="ORANG_TUA" role="Orang Tua / Wali" name="Orang Tua Nalarva" initials="OT" nav={PARENT_NAV}><AcademicCalendar/></DashboardShell>}

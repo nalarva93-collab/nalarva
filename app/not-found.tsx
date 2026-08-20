@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <div className="error-screen"><div className="error-card"><span>404 · NALARVA</span><h1>Halaman tidak ditemukan.</h1><p>Alamat mungkin sudah berubah atau halaman tersebut tidak tersedia.</p><div><Link className="btn primary" href="/">Kembali ke Beranda</Link><Link className="btn ghost" href="/login">Masuk Nalarva</Link></div></div></div>}

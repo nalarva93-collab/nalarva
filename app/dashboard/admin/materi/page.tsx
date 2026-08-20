@@ -1,0 +1,15 @@
+"use client";
+import {FormEvent,useEffect,useState} from "react";
+import DashboardShell from "@/components/DashboardShell";
+import {ADMIN_NAV} from "@/lib/dashboard-nav";
+import {authedNalarva,fileToBase64,formatDate} from "@/lib/apps-script";
+import {Empty,Message,PageHead,Panel,Status} from "@/components/dashboard/DashboardUI";
+type Row=Record<string,any>;
+export default function Page(){
+ const [rows,setRows]=useState<Row[]>([]),[classes,setClasses]=useState<Row[]>([]),[msg,setMsg]=useState(""),[busy,setBusy]=useState(false);
+ async function load(){const [a,b]=await Promise.all([authedNalarva<Row[]>("listMaterials"),authedNalarva<Row[]>("listClasses")]);setRows(a.data||[]);setClasses(b.data||[])}useEffect(()=>{void load()},[]);
+ async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();const form=e.currentTarget;setBusy(true);setMsg("");try{const fd=new FormData(form),file=fd.get("file");if(!(file instanceof File)||!file.size)throw new Error("Pilih file materi.");const base64=await fileToBase64(file);const r=await authedNalarva("uploadMaterial",{classId:String(fd.get("classId")||""),title:String(fd.get("title")||""),description:String(fd.get("description")||""),type:String(fd.get("type")||"PDF"),fileName:file.name,mimeType:file.type||"application/octet-stream",base64});setMsg(r.message||"");if(r.ok){form.reset();await load()}}catch(err){setMsg(err instanceof Error?err.message:"Upload gagal.")}finally{setBusy(false)}}
+ return <DashboardShell accessRole="ADMIN" role="Administrator" name="Admin Nalarva" initials="AD" nav={ADMIN_NAV}><PageHead eyebrow="Konten Akademik" title="Materi pembelajaran" desc="Admin dapat memantau sekaligus mempublikasikan materi ke kelas."/>
+ <div className="ops-grid"><Panel eyebrow="UPLOAD" title="Tambah materi"><form className="dash-form" onSubmit={submit}><label>Kelas<select name="classId" required><option value="">Pilih kelas</option>{classes.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label><label>Judul<input name="title" required/></label><label>Tipe<select name="type"><option>PDF</option><option>DOC</option><option>SLIDE</option><option>WORKSHEET</option></select></label><label>Deskripsi<textarea name="description"/></label><label>File maksimal 4 MB<input name="file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png" required/></label><button className="btn primary wide" disabled={busy}>{busy?"Mengunggah...":"Upload & publikasikan"}</button>{msg&&<Message text={msg}/>}</form></Panel>
+ <Panel eyebrow="MATERI" title={`${rows.length} materi`}>{rows.length===0?<Empty/>:<div className="table-wrap"><table><thead><tr><th>Materi</th><th>Kelas</th><th>Tipe</th><th>Terbit</th><th>Status</th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.title}</b><br/><small>{r.description}</small></td><td>{r.class_name||r.class_id}</td><td>{r.type}</td><td>{formatDate(r.published_at,true)}</td><td><Status value={r.status}/></td></tr>)}</tbody></table></div>}</Panel></div></DashboardShell>
+}

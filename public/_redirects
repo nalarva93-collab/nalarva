@@ -1,0 +1,4 @@
+# Alias sederhana untuk Cloudflare Pages
+/masuk /login/ 301
+/register /daftar/ 301
+/daftar-program /daftar/ 301

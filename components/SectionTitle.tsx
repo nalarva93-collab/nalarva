@@ -1,0 +1,1 @@
+export default function SectionTitle({eyebrow,title,desc,center=false}:{eyebrow:string;title:string;desc?:string;center?:boolean}){return <div className={center?"section-title center":"section-title"}><div><span>{eyebrow}</span><h2>{title}</h2></div>{desc&&<p>{desc}</p>}</div>}

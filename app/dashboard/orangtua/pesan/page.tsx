@@ -1,0 +1,1 @@
+"use client";import DashboardShell from "@/components/DashboardShell";import MessagesCenter from "@/components/dashboard/MessagesCenter";import {PARENT_NAV} from "@/lib/dashboard-nav";export default function Page(){return <DashboardShell accessRole="ORANG_TUA" role="Orang Tua / Wali" name="Orang Tua Nalarva" initials="OT" nav={PARENT_NAV}><MessagesCenter/></DashboardShell>}

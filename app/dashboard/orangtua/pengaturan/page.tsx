@@ -1,0 +1,1 @@
+import AccountSettings from "@/components/dashboard/AccountSettings";import {PARENT_NAV} from "@/lib/dashboard-nav";export default function Page(){return <AccountSettings accessRole="ORANG_TUA" role="Orang Tua / Wali" nav={PARENT_NAV}/>}

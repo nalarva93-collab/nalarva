@@ -1,0 +1,16 @@
+NALARVA - CLOUDFLARE PAGES STATIC
+
+Build command: npm run build
+Build output directory: out
+Root directory: /
+
+PENTING:
+- JANGAN gunakan: npx wrangler deploy
+- JANGAN gunakan OpenNext
+- JANGAN buat Worker untuk project ini
+- Output Next.js adalah file statis dari folder out
+
+Environment variable opsional:
+NEXT_PUBLIC_APPS_SCRIPT_URL
+NEXT_PUBLIC_WHATSAPP_URL
+NEXT_PUBLIC_GOOGLE_DRIVE_URL
